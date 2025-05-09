@@ -1,6 +1,6 @@
 const express = require('express')
 const {createUser,findUser} = require("../Repo/busRepo");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 module.exports.passwordHashing =async (data) =>{
