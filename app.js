@@ -5,7 +5,7 @@ const port = 3000
 const router = require('./User/Router/userRouter');
 const busOperatorRouter = require('./BusOperator/Router/busRouter')
 const tripsRouter = require('./BusTrips/Router/tripsRouter')
-const dbConnection = require('./config/dbConnection')
+const dbConnection = require('./Config/dbConnection')
 
 async function db() {
     try {
@@ -30,12 +30,6 @@ app.use(
     credentials: true, // Allow cookies if needed
   })
 );
-
-
-
-
-
-
 
 
 app.use('/user',router)
