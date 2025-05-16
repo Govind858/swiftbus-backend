@@ -43,12 +43,22 @@
     fare:{
         type:Number,
         required:true
+    },
+
+    totalFare:{
+        type:Number,
+        required:true
+    },
+    passengerCount:{
+        type:Number,
+        required:true
     }
 
+
    
 
    
- })
+ },{timestamps:true})
 
  const ticketModel = mongoose.model('tickets',ticketSchema)
 

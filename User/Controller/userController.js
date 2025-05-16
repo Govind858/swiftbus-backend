@@ -1,6 +1,6 @@
 const express = require('express')
 const {passwordHashing,loginFunction} = require('../UseCase/userUseCase');
-const { fetchTicket } = require('../Repo/userRepo');
+const { fetchTicket,findLocation } = require('../Repo/userRepo');
 const verifyToken = require('../../Midddleware/verifyToken')
 
 const userRegistration = async (req,res) =>{
@@ -44,4 +44,22 @@ const viewTicket = async (req,res) => {
     }
 }
 
-module.exports = {userRegistration,userLogin,viewTicket}
+const autoSuggest = async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) return res.json({ result: "query is null" });
+
+        const locations = await findLocation(q);
+        if (!locations || locations.length === 0) {
+            return res.json({ result: "No matching data found" });
+        }
+
+        res.json(locations);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+module.exports = {userRegistration,userLogin,viewTicket,autoSuggest}

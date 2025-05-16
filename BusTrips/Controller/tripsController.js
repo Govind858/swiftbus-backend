@@ -129,7 +129,7 @@ const createOrder = async (req,res)=>{
 
 const createTicket = async (req,res) => {
     try {
-        const { distance, fare, busName, fromStop, toStop,busOperatorId } = req.body;
+        const { distance, fare,totalFare,passengerCount, busName, fromStop, toStop,busOperatorId } = req.body;
         const userId = req.userId.id || req.userId;
         
         const ticketData = {
@@ -140,6 +140,8 @@ const createTicket = async (req,res) => {
           toStop,
           distance,
           fare,
+          totalFare,
+          passengerCount 
         };
 
         const ticket = await saveTicket(ticketData) 
