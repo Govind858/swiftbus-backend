@@ -1,4 +1,5 @@
  const mongoose = require('mongoose')
+const { boolean } = require('webidl-conversions')
 
  const stopsSchema = new mongoose.Schema({
     stop:{
@@ -51,6 +52,11 @@
     },
     passengerCount:{
         type:Number,
+        required:true
+    },
+    isVerified:{
+        type:Boolean,
+        default:false,
         required:true
     }
 

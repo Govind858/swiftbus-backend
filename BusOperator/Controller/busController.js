@@ -1,6 +1,6 @@
 const express = require('express')
 const {passwordHashing,loginFunction} = require('../UseCase/busUseCase');
-const { findTrips,fetchBookings } = require('../Repo/busRepo');
+const { findTrips,fetchBookings, validateTicket } = require('../Repo/busRepo');
 
 const busRegistration = async (req,res) =>{
     console.log(req.body,"arrived")
@@ -63,6 +63,18 @@ const viewBookings = async (req,res) => {
         console.log(error)
     }
 }
-module.exports = {busRegistration,busLogin,viewTrips,viewBookings}
+
+const verifyTicket = async (res,req) => {
+    try {
+     const ticketId = req.params.ticketId  
+     const  checkingTicket = await validateTicket(ticketId) 
+     res.json({
+        checkingTicket
+     })
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports = {busRegistration,busLogin,viewTrips,viewBookings,verifyTicket}
 
 

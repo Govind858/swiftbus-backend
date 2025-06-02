@@ -32,3 +32,20 @@ module.exports.fetchBookings = async (userId) => {
     console.log(error)
    }
 }
+
+module.exports.validateTicket= async (ticketId) => {
+    try {
+        const ticket = await ticketModel.findById(ticketId)
+        if(!ticket){
+            return {found:false, message:'invalid ticket'}
+        }else if(!ticket.isVerified){
+           ticket.isVerified = true
+           await ticket.save()
+           return {found:true, message:'valid ticket',ticket}
+        }else{
+            return {found:true, message:"the ticket is already used"}
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

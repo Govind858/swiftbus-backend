@@ -47,3 +47,14 @@ module.exports.findLocation = async (q) => {
     return [];
   }
 };
+
+
+module.exports.findTripById = async (id) => {
+  try {
+    console.log(id)
+    const trip = await tripsModel.findOne({ _id: id });
+   return trip;
+  } catch (error) {
+    console.log(error)
+  }
+}

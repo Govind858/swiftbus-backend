@@ -1,6 +1,6 @@
 const express = require('express')
 const {passwordHashing,loginFunction} = require('../UseCase/userUseCase');
-const { fetchTicket,findLocation } = require('../Repo/userRepo');
+const { fetchTicket,findLocation, findTripById } = require('../Repo/userRepo');
 const verifyToken = require('../../Midddleware/verifyToken')
 
 const userRegistration = async (req,res) =>{
@@ -47,6 +47,7 @@ const viewTicket = async (req,res) => {
 const autoSuggest = async (req, res) => {
     try {
         const { q } = req.query;
+        console.log("recevied the request")
         if (!q) return res.json({ result: "query is null" });
 
         const locations = await findLocation(q);
@@ -55,11 +56,25 @@ const autoSuggest = async (req, res) => {
         }
 
         res.json(locations);
+        console.log(locations)
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error" });
     }
 };
 
+    const fetchTrip = async (req,res) => {
+        try {
+            const id = req.params.tripId
+            const trip = await findTripById(id)
+            res.json({
+                success:true,
+                trip
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-module.exports = {userRegistration,userLogin,viewTicket,autoSuggest}
+
+module.exports = {userRegistration,userLogin,viewTicket,autoSuggest,fetchTrip}
